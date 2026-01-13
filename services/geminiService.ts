@@ -2,16 +2,28 @@
 import { GoogleGenAI } from "@google/genai";
 import { Game, UserStats } from "../types";
 
-// NOTE: The API Key is injected via process.env.API_KEY
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
+// SAFELY initialize API Key to prevent white-screen crashes if env is missing
+const getApiKey = () => {
+  try {
+    if (typeof process !== 'undefined' && process.env && process.env.API_KEY) {
+      return process.env.API_KEY;
+    }
+  } catch (e) {
+    // Ignore error if process is not defined
+  }
+  return '';
+};
+
+const apiKey = getApiKey();
+const ai = new GoogleGenAI({ apiKey });
 
 export const getGameRecommendation = async (
   query: string,
   availableGames: Game[]
 ): Promise<string> => {
-  if (!process.env.API_KEY) {
+  if (!apiKey) {
     console.warn("Gemini API Key missing");
-    return "I need an API key to think!";
+    return "No exact match"; // Fail gracefully
   }
 
   const gameNames = availableGames.map(g => g.name).slice(0, 500).join(", ");
@@ -39,8 +51,8 @@ export const getGameRecommendation = async (
 };
 
 export const getGameStrategy = async (game: Game, kidName?: string, stats?: UserStats): Promise<string> => {
-  if (!process.env.API_KEY) {
-    return "AI Assistant offline (Missing API Key). Just have fun!";
+  if (!apiKey) {
+    return "AI Coach requires an API Key to activate. Just have fun!";
   }
 
   let context = "";
@@ -103,7 +115,7 @@ export const getGameFunDescription = async (game: Game): Promise<{ summary: stri
       funFact: "Gaming helps improve hand-eye coordination!"
   };
 
-  if (!process.env.API_KEY) {
+  if (!apiKey) {
     return fallback;
   }
 
