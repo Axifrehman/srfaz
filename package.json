@@ -10,8 +10,25 @@
   },
   "dependencies": {
     "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "@google/genai": "^1.35.0"
+    "@google/genai": "0.0.12",
+    "./App": "latest",
+    "./types": "latest",
+    "./constants": "latest",
+    "./components/Header": "latest",
+    "./components/Hero": "latest",
+    "./components/GameCard": "latest",
+    "./components/GamePlayer": "latest",
+    "./components/GameDetailsModal": "latest",
+    "./components/MagicSearchModal": "latest",
+    "./components/GameSection": "latest",
+    "./components/DailyChallenge": "latest",
+    "./components/Leaderboard": "latest",
+    "./components/AchievementsModal": "latest",
+    "./services/gameData": "latest",
+    "./services/geminiService": "latest",
+    "./services/storageService": "latest",
+    "./services/achievementData": "latest",
+    "react-dom": "^19.2.3"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",

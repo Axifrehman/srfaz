@@ -5,20 +5,24 @@
     <link rel="icon" type="image/svg+xml" href="https://fonts.gstatic.com/s/i/materialicons/rocket_launch/v12/24px.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>srfaz.fun | The Ultimate Kids Gaming Portal</title>
+    
+    <!-- 1. Load Tailwind -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Import Premium Gaming Fonts -->
+    
+    <!-- 2. Load Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
     
+    <!-- 3. Tailwind Configuration -->
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              space: '#050b14', // Darker, richer black/blue
+              space: '#050b14',
               deep: '#0f172a',
               primary: '#6366f1',
               secondary: '#d946ef',
-              accent: '#00e5ff', // Cyberpunk Cyan
+              accent: '#00e5ff',
               glass: 'rgba(255, 255, 255, 0.05)',
             },
             fontFamily: {
@@ -29,79 +33,84 @@
               'float': 'float 6s ease-in-out infinite',
               'scroll': 'scroll 40s linear infinite',
               'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              'wiggle': 'wiggle 1s ease-in-out infinite',
             },
             keyframes: {
               float: {
                 '0%, 100%': { transform: 'translateY(0)' },
                 '50%': { transform: 'translateY(-20px)' },
               },
-              scroll: {
-                '0%': { transform: 'translateX(0)' },
-                '100%': { transform: 'translateX(-50%)' },
+              wiggle: {
+                '0%, 100%': { transform: 'rotate(-3deg)' },
+                '50%': { transform: 'rotate(3deg)' },
               }
             }
           },
         },
       }
     </script>
+
     <style>
-      body {
-        background-color: #050b14;
-        color: #fff;
-        overflow-x: hidden;
-      }
-      
-      /* Noise Texture for Premium Feel */
+      body { background-color: #050b14; color: #fff; overflow-x: hidden; }
       .bg-noise {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: -1;
-        opacity: 0.03;
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; opacity: 0.03;
         background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
       }
-
-      /* Glow Mesh Background */
       .glow-mesh {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -2;
-        background: 
-          radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15), transparent 25%),
-          radial-gradient(circle at 85% 30%, rgba(217, 70, 239, 0.15), transparent 25%);
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2;
+        background: radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.15), transparent 25%), radial-gradient(circle at 85% 30%, rgba(217, 70, 239, 0.15), transparent 25%);
       }
-
-      /* Hide Scrollbar for cleaner UI */
-      .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-      }
-      .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-      }
+      .scrollbar-hide::-webkit-scrollbar { display: none; }
+      .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
-  <script type="importmap">
+
+    <!-- 4. Import Map to resolve paths without build step -->
+    <script type="importmap">
 {
   "imports": {
-    "react": "https://esm.sh/react@^19.2.3",
+    "react": "https://esm.sh/react@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "@google/genai": "https://esm.sh/@google/genai@0.0.12",
+    "./App": "./App.tsx",
+    "./types": "./types.ts",
+    "./constants": "./constants.ts",
+    "./components/Header": "./components/Header.tsx",
+    "./components/Hero": "./components/Hero.tsx",
+    "./components/GameCard": "./components/GameCard.tsx",
+    "./components/GamePlayer": "./components/GamePlayer.tsx",
+    "./components/GameDetailsModal": "./components/GameDetailsModal.tsx",
+    "./components/MagicSearchModal": "./components/MagicSearchModal.tsx",
+    "./components/GameSection": "./components/GameSection.tsx",
+    "./components/DailyChallenge": "./components/DailyChallenge.tsx",
+    "./components/Leaderboard": "./components/Leaderboard.tsx",
+    "./components/AchievementsModal": "./components/AchievementsModal.tsx",
+    "./services/gameData": "./services/gameData.ts",
+    "./services/geminiService": "./services/geminiService.ts",
+    "./services/storageService": "./services/storageService.ts",
+    "./services/achievementData": "./services/achievementData.ts",
+    "../types": "./types.ts",
+    "../constants": "./constants.ts",
+    "../services/geminiService": "./services/geminiService.ts",
+    "../services/storageService": "./services/storageService.ts",
+    "../services/gameData": "./services/gameData.ts",
+    "../services/achievementData": "./services/achievementData.ts",
+    "../components/Header": "./components/Header.tsx",
+    "../components/GameCard": "./components/GameCard.tsx",
     "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "@google/genai": "https://esm.sh/@google/genai@^1.35.0"
+    "react/": "https://esm.sh/react@^19.2.3/"
   }
 }
 </script>
-</head>
+
+    <!-- 5. Babel Standalone for in-browser compilation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
   <body class="bg-space text-white antialiased selection:bg-accent selection:text-black">
     <div class="bg-noise"></div>
     <div class="glow-mesh"></div>
     <div id="root"></div>
-    <!-- Changed from /index.tsx to ./index.tsx for relative path support -->
-    <script type="module" src="./index.tsx"></script>
+
+    <!-- 6. Main Entry Script with Babel Type -->
+    <script type="text/babel" data-type="module" data-presets="react,typescript" src="./index.tsx"></script>
   </body>
 </html>
